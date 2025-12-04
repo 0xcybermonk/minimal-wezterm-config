@@ -1,14 +1,11 @@
 local gpu_adapters = require('utils.gpu-adapter')
-local backdrops = require('utils.backdrops')
 local colors = require('colors.custom')
 
 return {
    max_fps = 120,
-   front_end = 'WebGpu', ---@type 'WebGpu' | 'OpenGL' | 'Software'
+   front_end = 'WebGpu',
    webgpu_power_preference = 'HighPerformance',
    webgpu_preferred_adapter = gpu_adapters:pick_best(),
-   -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Dx12', 'IntegratedGpu'),
-   -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Gl', 'Other'),
    underline_thickness = '1.5pt',
 
    -- cursor
@@ -17,12 +14,15 @@ return {
    cursor_blink_ease_out = 'EaseOut',
    default_cursor_style = 'BlinkingBlock',
    cursor_blink_rate = 650,
-
+   --selection_paste_on_mouse_up = true,
    -- color scheme
    colors = colors,
 
-   -- background: pass in `true` if you want wezterm to start with focus mode on (no bg images)
-   background = backdrops:initial_options(false),
+   -- REMOVE background field entirely
+   -- window_background_opacity + blur will handle transparency
+   window_background_opacity = 0.85,
+   text_background_opacity = 0.95,
+   macos_window_background_blur = 20,
 
    -- scrollbar
    enable_scroll_bar = true,
@@ -52,13 +52,8 @@ return {
    window_close_confirmation = 'NeverPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
-      -- font = fonts.font,
-      -- font_size = fonts.font_size,
    },
-   -- inactive_pane_hsb = {
-   --    saturation = 0.9,
-   --    brightness = 0.65,
-   -- },
+
    inactive_pane_hsb = {
       saturation = 1,
       brightness = 1,
@@ -72,3 +67,4 @@ return {
       target = 'CursorColor',
    },
 }
+

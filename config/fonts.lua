@@ -1,11 +1,11 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
--- local font_family = 'Maple Mono NF'
-local font_family = 'JetBrainsMono Nerd Font'
--- local font_family = 'CartographCF Nerd Font'
+-- Use Ubuntu default font
+local font_family = 'Ubuntu Mono'
 
-local font_size = platform.is_mac and 12 or 9.75
+-- Font size: macOS slightly bigger than Linux
+local font_size = platform.is_mac and 14 or 13
 
 return {
    font = wezterm.font({
@@ -14,7 +14,11 @@ return {
    }),
    font_size = font_size,
 
-   --ref: https://wezfurlong.org/wezterm/config/lua/config/freetype_pcf_long_family_names.html#why-doesnt-wezterm-use-the-distro-freetype-or-match-its-configuration
-   freetype_load_target = 'Normal', ---@type 'Normal'|'Light'|'Mono'|'HorizontalLcd'
-   freetype_render_target = 'Normal', ---@type 'Normal'|'Light'|'Mono'|'HorizontalLcd'
+   -- FreeType rendering settings
+   freetype_load_target = 'Normal',      -- 'Normal'|'Light'|'Mono'|'HorizontalLcd'
+   freetype_render_target = 'Normal',    -- 'Normal'|'Light'|'Mono'|'HorizontalLcd'
+
+   -- Optional spacing tweaks for better Ubuntu Mono appearance
+   line_height = 1.05,
+   cell_width = 1.0,
 }
