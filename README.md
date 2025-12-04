@@ -1,5 +1,6 @@
 <img width="809" height="577" alt="image" src="https://github.com/user-attachments/assets/f3fdab34-ebf5-4f8d-80ee-1767142a09f5" />
 
+## **I used AI to make adjustments**
 
 ## **WezTerm Shortcut Cheat Sheet**
 
