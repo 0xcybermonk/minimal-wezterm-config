@@ -4,6 +4,8 @@
 
 ## **WezTerm Shortcut Cheat Sheet**
 
+|Key | Action |
+| ---| ---|
 | SUPER | ALT |
 | SUPER_Rev | CTRL+ALT |
 
