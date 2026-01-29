@@ -43,7 +43,7 @@ local keys = {
 
   -- window
   { key = 'n', mods = mod.SUPER, action = act.SpawnWindow },
-  { key = 'Space', mods = 'SUPER', action = act.SendString('\u{15}') }, -- clear line
+  { key = 'Space', mods = 'CTRL', action = act.SendString('\u{15}') }, -- clear line (Ctrl+Space)
   { key = 'Enter', mods = mod.SUPER_REV, action = act.ToggleFullScreen },
 
   -- window resize Alt + = / -
@@ -101,6 +101,24 @@ local keys = {
   -- resize panes & fonts: LEADER mode
   { key = 'f', mods = 'LEADER', action = act.ActivateKeyTable({ name='resize_font', one_shot=false }) },
   { key = 'p', mods = 'LEADER', action = act.ActivateKeyTable({ name='resize_pane', one_shot=false }) },
+  
+  -- productivity: LEADER mode
+  { key = 'Space', mods = 'LEADER', action = act.QuickSelect },
+  { key = 'w', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+  
+  -- Session Management (Resurrect)
+  { key = 's', mods = 'LEADER', action = wezterm.action_callback(function(win, pane)
+      local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+      resurrect.state_manager.save_state(resurrect.window_state.get_window_state(win, pane))
+  end) },
+  { key = 'r', mods = 'LEADER', action = wezterm.action_callback(function(win, pane)
+      local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+      resurrect.window_state.restore_window(pane:window(), resurrect.window_state.load_window_state(), {
+        relative = true,
+        restore_text = true,
+        on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+      })
+  end) },
 }
 
 local key_tables = {
@@ -122,11 +140,26 @@ local key_tables = {
 }
 
 local mouse_bindings = {
+  -- Ctrl-click maps to open link
   { event = { Up = { streak = 1, button = 'Left' } }, mods = 'CTRL', action = act.OpenLinkAtMouseCursor },
+  -- Standard mouse bindings
+  { event = { Down = { streak = 1, button = 'Left' } }, mods = 'NONE', action = act.SelectTextAtMouseCursor 'Cell' },
+  { event = { Up = { streak = 1, button = 'Left' } }, mods = 'NONE', action = act.CompleteSelection 'ClipboardAndPrimarySelection' },
+  { event = { Drag = { streak = 1, button = 'Left' } }, mods = 'NONE', action = act.ExtendSelectionToMouseCursor 'Cell' },
+  { event = { Down = { streak = 2, button = 'Left' } }, mods = 'NONE', action = act.SelectTextAtMouseCursor 'Word' },
+  { event = { Up = { streak = 2, button = 'Left' } }, mods = 'NONE', action = act.CompleteSelection 'ClipboardAndPrimarySelection' },
+  { event = { Drag = { streak = 2, button = 'Left' } }, mods = 'NONE', action = act.ExtendSelectionToMouseCursor 'Word' },
+  { event = { Down = { streak = 3, button = 'Left' } }, mods = 'NONE', action = act.SelectTextAtMouseCursor 'Line' },
+  { event = { Up = { streak = 3, button = 'Left' } }, mods = 'NONE', action = act.CompleteSelection 'ClipboardAndPrimarySelection' },
+  { event = { Drag = { streak = 3, button = 'Left' } }, mods = 'NONE', action = act.ExtendSelectionToMouseCursor 'Line' },
+  -- Scrolling
+  { event = { Down = { streak = 1, button = { WheelUp = 1 } } }, mods = 'NONE', action = act.ScrollByCurrentEventWheelDelta },
+  { event = { Down = { streak = 1, button = { WheelDown = 1 } } }, mods = 'NONE', action = act.ScrollByCurrentEventWheelDelta },
 }
 
 return {
   disable_default_key_bindings = true,
+  disable_default_mouse_bindings = true,
   leader = { key = 'Space', mods = mod.SUPER_REV },
   keys = keys,
   key_tables = key_tables,

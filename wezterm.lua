@@ -1,3 +1,4 @@
+local wezterm = require 'wezterm'
 local Config = require('config')
 
 -- Remove wallpaper / backdrop
@@ -13,6 +14,10 @@ local Config = require('config')
 require('events.tab-title').setup({ hide_active_tab_unseen = false, unseen_icon = 'numbered_box' })
 require('events.new-tab-button').setup()
 require('events.gui-startup').setup()
+
+-- Resurrect Plugin
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+resurrect.state_manager.periodic_save()
 
 return Config:init()
    :append(require('config.appearance'))

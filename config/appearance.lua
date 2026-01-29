@@ -55,8 +55,8 @@ return {
    },
 
    inactive_pane_hsb = {
-      saturation = 1,
-      brightness = 1,
+      saturation = 0.8,
+      brightness = 0.6,
    },
 
    visual_bell = {
