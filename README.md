@@ -20,7 +20,7 @@
 | F5 | Show Launcher (Workspaces Only) |
 | F11 | Toggle Fullscreen |
 | F12 | Show Debug Overlay |
-| SUPER+Space | Clear Current Line |
+| CTRL+Space | Clear Current Line |
 | SUPER+f | Search Text |
 
 ---
@@ -134,8 +134,35 @@
 
 ---
 
+### **Productivity**
+
+**Quick Select (Leader + Space)**
+Highlight and copy visible text (URLs, IPs, etc.) without using the mouse.
+
+**Workspaces (Leader + w)**
+Switch between named workspaces.
+
+**Session Persistence (Resurrect)**
+Save and restore state.
+
+| Key | Action |
+| --- | --- |
+| Leader + s | Save Window State |
+| Leader + r | Restore Window State |
+
+> **Leader Key** is `CTRL + ALT + Space`.
+
+---
+
 ### **Mouse**
 
 | Trigger | Action |
 | --- | --- |
+| Trigger | Action |
+| --- | --- |
+| Left Click | Select Text |
+| Left Drag | Extend Selection |
+| Double Click | Select Word |
+| Triple Click | Select Line |
+| Up (Release) | **Copy Selection** |
 | Ctrl + Left Click | Open Link at Cursor |
